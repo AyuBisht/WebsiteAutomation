@@ -5,7 +5,7 @@ import pandas as pd
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-s=Service('C://Users//bisht//Downloads//chromedriver//chromedriver.exe')
+s=Service('path-to-chromedriver.exe')
 driver = webdriver.Chrome(service=s)
   
 #navigate to the website
@@ -47,7 +47,7 @@ scope)
 client = gspread.authorize(credentials)
 
 #Open a spreadsheet:
-sheet = client.open("dailyFIIDII")
+sheet = client.open("sheet-name")
 #create a new worsheet
 wsh = sheet.add_worksheet(date[0],100,100)
 #enter the values from the dataframe
