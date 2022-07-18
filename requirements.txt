@@ -1,0 +1,5 @@
+selenium 
+pandas
+gspread
+oauth2client 
+chromedriver for your OS
