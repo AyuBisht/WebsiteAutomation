@@ -42,18 +42,28 @@ print(df)
 
 # connect to Google sheets
 scope = ['https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive"]
-credentials=ServiceAccountCredentials.from_json_keyfile_name("credentials.json",
+cred = {
+  "type": "service_account",
+  "project_id": "automation-356709",
+  "private_key_id": "private_key_id",
+  "private_key": "private_key",
+  "client_email": "client_email",
+  "client_id": "client_id",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/automation%40automation-356709.iam.gserviceaccount.com"
+}
+
+credentials=ServiceAccountCredentials.from_json_keyfile_dict(cred,
 scope)
 client = gspread.authorize(credentials)
 
 #Open a spreadsheet:
-sheet = client.open("sheet-name")
-#create a new worsheet
-wsh = sheet.add_worksheet(date[0],100,100)
-#enter the values from the dataframe
-wsh.update([df.columns.values.tolist()] + df.values.tolist())
-
-
-
-
-
+sheet = client.open("DailyFII/DII")
+wksh = sheet.sheet1
+for i in range(len(df)):
+    new = []
+    for j in df.loc[i]:
+        new.append(j)
+    wksh.append_row(new)
